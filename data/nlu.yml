@@ -1,0 +1,101 @@
+version: "2.0"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+- intent: affirm
+  examples: |
+    - Great
+    - yeeeeeeees
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - satisfied
+    - I'm satisfied with the chatbot
+    - sure
+    - good
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - not satisfied
+    - I'm not satisfied with the chatbot
+- intent: complain
+  examples: |
+    - You idiot
+    - Stupid chatbot
+    - You're a jerk
+    - You have no intelligence
+    - You can't think by yourself
+    - You fool
+    - No, you stupid bot!
+    - shit
+- intent: out_of_scope
+  examples: |
+    - Who are you
+    - who are you
+    - What is calculus
+    - What 2 + 2
+    - train a bot
+    - ??
+    - wtf
+    - more interesting
+    - weather
+- intent: variables
+  examples: |
+    - shirt
+    - [blue](Color)
+    - [blue](Color) shirt
+    - a [blue](Color) shirt with [long sleeves](Sleeve_length)
+    - [dark](Darkness) [blue](Color) shirt
+    - [formal](Style) shirt
+    - [formal](Style)
+    - [long sleeves](Sleeve_length)
+    - I want a  [formal](Style) [blue](Color) shirt with [long sleeves](Sleeve_length).
+    - I want a [dark](Darkness) [blue](Color) shirt with [long sleeves](Sleeve_length) and [formal](Style) style.
+    - No, I want a more [formal] shirt.
+    - No, I want a [darker](Darkness) one.
+    - without the [stickers](Style)
+    - without the [logos](Style)
+    - No [logo](Style)
+- intent: try_again
+  examples: |
+    - try again
+    - Please try again.
+- intent: transfer_to_human
+  examples: |
+    - Transfer to human
+    - Please transfer to human

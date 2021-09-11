@@ -1,0 +1,136 @@
+version: "2.0"
+stories:
+- story: greet and ask for input
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_ask_product
+  - intent: variables
+  - checkpoint: loop_started
+
+
+- story: affirm after confirmation
+  steps:
+  - checkpoint: switching_finished
+  - intent: affirm
+  - action: end_remarks_action
+
+
+- story: deny after confirmation and variables
+  steps:
+  - checkpoint: switching_finished
+  - intent: deny
+  - action: utter_ask_for_var_after_deny
+  - intent: variables
+  - action: self_mockery_when_wrong_action
+  - checkpoint: loop_started
+
+
+- story: variables after confirmation
+  steps:
+  - checkpoint: switching_finished
+  - intent: variables
+  - action: self_mockery_when_wrong_action
+  - checkpoint: loop_started
+
+
+- story: complain after confirmation
+  steps:
+  - checkpoint: switching_finished
+  - intent: complain
+  - action: self_mockery_abuse_action
+  - action: ask_for_variables_input_action
+  - intent: variables
+  - action: self_mockery_when_wrong_action
+  - checkpoint: loop_started
+
+
+- story: switching story1
+  steps:
+  - checkpoint: switching_started
+  - slot_was_set:
+    - loop_num: __other__
+  - checkpoint: switching_finished
+
+- story: switching story2
+  steps:
+  - checkpoint: switching_started
+  - slot_was_set: 
+    - loop_num: 5
+  - checkpoint: last_cycle_started
+
+- story: story complain before transfer to human
+  steps:
+  - checkpoint: last_cycle_started
+  - intent: complain
+  - action: self_mockery_abuse_action
+  - action: ask_for_variables_input_action
+  - intent: variables
+  - checkpoint: ask_transfer_to_human
+
+- story: story deny before transfer to human
+  steps:
+  - checkpoint: last_cycle_started
+  - intent: deny
+  - action: utter_ask_for_var_after_deny
+  - intent: variables
+  - action: self_mockery_when_wrong_action
+  - checkpoint: ask_transfer_to_human
+
+- story: story variables before transfer to human
+  steps:
+  - checkpoint: last_cycle_started
+  - intent: variables
+  - action: self_mockery_when_wrong_action
+  - checkpoint: ask_transfer_to_human
+
+
+- story: loop story ask transfer to human - try again
+  steps:
+  - checkpoint: ask_transfer_to_human
+  - action: ask_transfer_to_human_action
+  - intent: try_again
+  - action: search_product_try_again_action
+  - checkpoint: satisfaction_started
+
+- story: affirm after last cycle
+  steps:
+  - checkpoint: satisfaction_started
+  - intent: affirm
+  - action: end_remarks_action
+
+- story: deny after last cycle
+  steps:
+  - checkpoint: satisfaction_started
+  - or:
+    - intent: deny
+    - intent: variables
+  - action: doubt_action  # seems got what you want
+  - checkpoint: ask_transfer_to_human
+
+- story: complain after last cycle
+  steps:
+  - checkpoint: satisfaction_started
+  - intent: complain
+  - action: self_mockery_abuse_action
+  - action: doubt_action
+  - checkpoint: ask_transfer_to_human
+
+
+- story: loop story ask transfer to human - transfer
+  steps:
+  - checkpoint: ask_transfer_to_human
+  - action: ask_transfer_to_human_action
+  - intent: transfer_to_human
+  - action: transfer_to_human_and_stop_action
+  - action: end_remarks_action
+
+
+# utils stories
+
+- story: loop story
+  steps:
+  - checkpoint: loop_started
+  - action: search_product_action # utter_working and serach product
+  # need a slot to memorize the number of loop to alternate output 
+  - checkpoint: switching_started
